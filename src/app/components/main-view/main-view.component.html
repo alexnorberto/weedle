@@ -62,12 +62,12 @@
         <mat-option *ngFor="let option of filteredPokemonList | async" [value]="option.name"
                     (onSelectionChange)="saveCurrentPokemonGuess(option)">
           <div class="autocomplete-pokemon-name autocomplete-data">{{option.name}}</div>
-          <div class="autocomplete-pokemon-data autocomplete-data">Gen #{{option.gen}} #{{option.id}} - {{option.type1}}/{{option.type1}}</div>
+          <div class="autocomplete-pokemon-data autocomplete-data">Gen #{{option.gen}} #{{option.id}} - {{option.type1}}/{{option.type2}}</div>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </form>
-  <div *ngIf="currentGuess">{{currentGuess.pokemon.name}} - Gen{{currentGuess.pokemon.gen}} #{{currentGuess.pokemon.id}} - {{currentGuess.pokemon.type1}}/{{currentGuess.pokemon.type1}}</div>
+  <div *ngIf="currentGuess">{{currentGuess.pokemon.name}} - Gen{{currentGuess.pokemon.gen}} #{{currentGuess.pokemon.id}} - {{currentGuess.pokemon.type1}}/{{currentGuess.pokemon.type2}}</div>
   <button mat-button (click)="submitGuess()" [disabled]="guessList.length >= MAX_GUESSES || !currentGuess">Guess</button>
 </div>
 

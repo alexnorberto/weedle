@@ -3,6 +3,7 @@ import * as pokemonList from '../../../assets/pokemon.json';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {PokemonService} from '../../services/pokemon.service';
 
 export interface Pokemon {
   id: number;
@@ -10,6 +11,7 @@ export interface Pokemon {
   name: any;
   type1: string;
   type2: string;
+  stage: number;
 }
 
 export interface Guess {
@@ -23,7 +25,8 @@ export interface Guess {
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
-  styleUrls: ['./main-view.component.css']
+  styleUrls: ['./main-view.component.css'],
+  providers: [PokemonService]
 })
 export class MainViewComponent implements OnInit {
 
@@ -34,7 +37,8 @@ export class MainViewComponent implements OnInit {
     gen: 4,
     name: 'Magmortar',
     type1: 'Fire',
-    type2: 'none'
+    type2: 'none',
+    stage: 0
   };
 
   currentGuess: Guess | undefined;
@@ -107,7 +111,7 @@ export class MainViewComponent implements OnInit {
 
   }
 
-  constructor() {
+  constructor(private pokemonService: PokemonService) {
   }
 
   ngOnInit(): void {
