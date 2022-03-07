@@ -1,0 +1,39 @@
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.autocomplete-data {
+  height: 50%;
+  line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.autocomplete-pokemon-data {
+ font-size: .8rem;
+}
+
+.different, .after {
+  background: red;
+}
+
+.before, .changed {
+  background: blue;
+}
+
+.equal {
+  background: green;
+}

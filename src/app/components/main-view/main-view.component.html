@@ -1,0 +1,74 @@
+<div class="main-container">
+  <table class="guesses-table">
+    <thead *ngIf="guessList.length > 0">
+      <th>Name</th>
+      <th>Gen</th>
+      <th>Number</th>
+      <th>Type1</th>
+      <th>Type2</th>
+
+    </thead>
+    <tr *ngFor="let guess of guessList">
+      <td>{{guess.pokemon.name}}</td>
+
+      <td
+        [ngClass]="{
+          'equal': guess.genRelativeToAnswer === '=',
+          'before': guess.genRelativeToAnswer === '<',
+          'after': guess.genRelativeToAnswer === '>'
+        }"
+      >Gen{{guess.pokemon.gen}}</td>
+
+
+      <td
+        [ngClass]="{
+          'equal': guess.idRelativeToAnswer === '=',
+          'before': guess.idRelativeToAnswer === '<',
+          'after': guess.idRelativeToAnswer === '>'
+        }"
+      >
+        <button mat-button>
+          <mat-icon *ngIf="guess.idRelativeToAnswer === '<'">chevron_left</mat-icon>
+          #{{guess.pokemon.id}}
+          <mat-icon *ngIf="guess.idRelativeToAnswer === '>'">chevron_right</mat-icon>
+        </button>
+      </td>
+
+      <td
+        [ngClass]="{
+          'equal': guess.type1IsEqual === 'true',
+          'different': guess.type1IsEqual === 'false',
+          'changed': guess.type1IsEqual === 'changed'
+        }"
+      >{{guess.pokemon.type1}}</td>
+      <td
+        [ngClass]="{
+          'equal': guess.type2IsEqual === 'true',
+          'different': guess.type2IsEqual === 'false',
+          'changed': guess.type2IsEqual === 'changed'
+        }"
+      >{{guess.pokemon.type2}}</td>
+    </tr>
+  </table>
+  <form [formGroup]="mainForm" autocomplete="off">
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        formControlName="pokemonInput"
+        type="text"
+        [matAutocomplete]="auto"
+      >
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredPokemonList | async" [value]="option.name"
+                    (onSelectionChange)="saveCurrentPokemonGuess(option)">
+          <div class="autocomplete-pokemon-name autocomplete-data">{{option.name}}</div>
+          <div class="autocomplete-pokemon-data autocomplete-data">Gen #{{option.gen}} #{{option.id}} - {{option.type1}}/{{option.type1}}</div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <div *ngIf="currentGuess">{{currentGuess.pokemon.name}} - Gen{{currentGuess.pokemon.gen}} #{{currentGuess.pokemon.id}} - {{currentGuess.pokemon.type1}}/{{currentGuess.pokemon.type1}}</div>
+  <button mat-button (click)="submitGuess()" [disabled]="guessList.length >= MAX_GUESSES || !currentGuess">Guess</button>
+</div>
+
+
