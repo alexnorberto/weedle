@@ -112,7 +112,7 @@ export class MainViewComponent implements OnInit {
     this.mainForm.controls.pokemonInput.disable();
   }
 
-  resetGame() {
+  resetGame(event = true) {
     this.endGame = '';
     this.guessList = [];
     this.guessListModel = Array(this.MAX_GUESSES).fill(Array(5));

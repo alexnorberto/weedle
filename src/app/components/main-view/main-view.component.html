@@ -1,11 +1,13 @@
 <div class="main-container">
 
   <div class="guess-table">
+
     <header>
       <span>Catch the Pokemon chasing the</span>
       <h1>weedle</h1>
     </header>
-    <div class="guess-container">
+
+    <div title="guess-headers" class="guess-container">
       <div class="guess-row">
         <div *ngFor="let header of headersList" class="guess-tile guess-header">
           <div class="weedle-head" *ngIf="header === 'Name'">
@@ -27,7 +29,8 @@
         </div>
       </div>
     </div>
-    <div *ngFor="let guess of guessList" class="guess-container filled">
+
+    <div title="guess-list" *ngFor="let guess of guessList" class="guess-container filled">
       <div class="guess-row">
         <div
           [ngClass]="{
@@ -125,7 +128,7 @@
       </div>
     </div>
 
-    <div *ngFor="let emptyGuessRow of guessListModel" class="guess-container">
+    <div title="guess-empty-list" *ngFor="let emptyGuessRow of guessListModel" class="guess-container">
       <div class="guess-row">
         <div class="guess-tile weedle-body" *ngFor="let emptyGuessItem of emptyGuessRow">
           <div class="weedle-foot"></div>
@@ -155,10 +158,14 @@
         <button mat-raised-button (click)="submitGuess()">Catch</button>
       </div>
     </form>
-
+<button (click)="endGame = 'ok'">+</button>
   </div>
+
 </div>
 
-<div class="end-game" *ngIf="endGame" (click)="resetGame()">{{endGame}}</div>
+
+<app-black-screen *ngIf="endGame" (closeBlackScreen)="resetGame($event)">
+  <div class="end-game">{{endGame}}</div>
+</app-black-screen>
 
 
