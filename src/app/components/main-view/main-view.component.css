@@ -6,6 +6,83 @@
   align-items: center;
 }
 
+.guess-table {
+  min-width: 15rem;
+  width: 100%;
+  max-width: 20rem;
+  overflow: hidden;
+}
+
+.guess-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  overflow: hidden;
+  margin-bottom: .1rem;
+  color: white;
+  text-transform: capitalize;
+}
+
+.guess-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.guess-tile {
+  float:left;
+  position: relative;
+  width: 16%;
+  padding-bottom : 16%; /* = width for a 1:1 aspect ratio */
+  margin: 0 1% 1%;
+  border: 1px solid #757575;
+  border-radius: 5%;
+  overflow:hidden;
+}
+
+.guess-row .guess-tile:first-of-type {
+  width: 26%;
+}
+
+.guess-content {
+  position:absolute;
+  height:90%; /* = 100% - 2*5% padding */
+  width:90%; /* = 100% - 2*5% padding */
+  padding: 5%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-size: .8rem;
+  text-transform: uppercase;
+}
+
+.guess-tile.changed {
+  background: #ffd740 !important;
+}
+
+.guess-tile.equal {
+  background: #46a35e !important;
+}
+
+.guess-tile.different {
+  background: #f44336 !important;
+}
+
+.pokemon-input {
+  width: 80%;
+  height: 2rem;
+  margin: 1rem 1%;
+}
+
 mat-option {
   display: flex;
   flex-direction: column;
@@ -23,17 +100,29 @@ mat-option {
 }
 
 .autocomplete-pokemon-data {
- font-size: .8rem;
+  font-size: .8rem;
 }
 
-.different, .after {
-  background: red;
+button {
+  width: 16% !important;
+  margin: 1%;
+  min-width: 3rem;
+  padding: 0;
 }
 
-.before, .changed {
-  background: blue;
-}
+.end-game {
+  font-size: 3rem;
+  color: white;
+  text-transform: uppercase;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
 
-.equal {
-  background: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -12,11 +12,13 @@ export interface Pokemon {
   type1: string;
   type2: string;
   stage: number;
+  evolvesBy: any;
 }
 
 export interface Guess {
-  idRelativeToAnswer: '<'| '=' | '>';
-  genRelativeToAnswer: '<'| '=' | '>';
+  idRelativeToAnswer: '<' | '=' | '>';
+  genRelativeToAnswer: '<' | '=' | '>';
+  stageIsEqual: boolean;
   type1IsEqual: 'true' | 'changed' | 'false';
   type2IsEqual: 'true' | 'changed' | 'false';
   pokemon: Pokemon;
@@ -32,18 +34,16 @@ export class MainViewComponent implements OnInit {
 
   MAX_GUESSES = 8;
 
-  currentCorrectAnswer: Pokemon = {
-    id: 467,
-    gen: 4,
-    name: 'Magmortar',
-    type1: 'Fire',
-    type2: 'none',
-    stage: 0
-  };
+  headersList = ['Name', 'Gen', 'Stage', 'Type1', 'Type2'];
+
+  endGame = '';
+
+  currentCorrectAnswer: Pokemon = this.pokemonService.randomPokemon();
 
   currentGuess: Guess | undefined;
 
   guessList: Array<Guess> = [];
+  guessListModel = Array(8).fill(Array(5));
 
   mainForm = new FormGroup({
     pokemonInput: new FormControl('', Validators.required),
@@ -66,6 +66,7 @@ export class MainViewComponent implements OnInit {
     this.currentGuess = {
       idRelativeToAnswer: this.currentCorrectAnswer.id < pkmn.id ? '<' : (this.currentCorrectAnswer.id === pkmn.id ? '=' : '>'),
       genRelativeToAnswer: this.currentCorrectAnswer.gen < pkmn.gen ? '<' : (this.currentCorrectAnswer.gen === pkmn.gen ? '=' : '>'),
+      stageIsEqual: this.currentCorrectAnswer.stage === pkmn.stage ? true : false,
       type1IsEqual: this.currentCorrectAnswer.type1 === pkmn.type1 ? 'true' : (this.currentCorrectAnswer.type2 === pkmn.type1 ? 'changed' : 'false'),
       type2IsEqual: this.currentCorrectAnswer.type2 === pkmn.type2 ? 'true' : (this.currentCorrectAnswer.type1 === pkmn.type2 ? 'changed' : 'false'),
       pokemon: pkmn
@@ -81,10 +82,12 @@ export class MainViewComponent implements OnInit {
     // Check the guess list size and check if it will be finalized or not
     if (this.guessList.length < this.MAX_GUESSES) {
       this.guessList.push(this.currentGuess);
+      this.guessListModel.pop();
       if (
         this.currentCorrectAnswer.id === this.currentGuess.pokemon.id &&
         this.currentCorrectAnswer.name === this.currentGuess.pokemon.name &&
         this.currentCorrectAnswer.gen === this.currentGuess.pokemon.gen &&
+        this.currentCorrectAnswer.stage === this.currentGuess.pokemon.stage &&
         this.currentCorrectAnswer.type1 === this.currentGuess.pokemon.type1 &&
         this.currentCorrectAnswer.type2 === this.currentGuess.pokemon.type2) {
         this.foundCorrectAnswer();
@@ -99,16 +102,23 @@ export class MainViewComponent implements OnInit {
 
   foundCorrectAnswer() {
     console.log('FOUND CORRECT ONE');
+    this.endGame = 'Gotcha!';
     this.mainForm.controls.pokemonInput.disable();
   }
 
   gameOver() {
     console.log('GAME OVER');
+    this.endGame = 'The Pokemon run away!';
     this.mainForm.controls.pokemonInput.disable();
   }
 
-  updateFilteredPokemonList() {
-
+  resetGame() {
+    this.endGame = '';
+    this.guessList = [];
+    this.guessListModel = Array(8).fill(Array(5));
+    this.currentGuess = undefined;
+    this.currentCorrectAnswer = this.pokemonService.randomPokemon();
+    this.mainForm.controls.pokemonInput.enable();
   }
 
   constructor(private pokemonService: PokemonService) {

@@ -12,10 +12,14 @@ export class PokemonService {
 
   pokemonList: Array<any> = (pokemonList as any).default;
 
+  randomPokemon() {
+    return this.pokemonList[Math.floor(Math.random() * this.pokemonList.length)];
+  }
+
   constructor() {
     const newList = [];
     this.pokemonList.forEach(pokemon => {
-      pokemon.stage = pokemon.stage + 1;
+      pokemon.stage = pokemon.stage;
       newList.push(pokemon);
     });
     console.log(this.pokemonList);
