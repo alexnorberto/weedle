@@ -32,7 +32,7 @@ export interface Guess {
 })
 export class MainViewComponent implements OnInit {
 
-  MAX_GUESSES = 8;
+  MAX_GUESSES = 7;
 
   headersList = ['Name', 'Gen', 'Stage', 'Type1', 'Type2'];
 
@@ -43,7 +43,7 @@ export class MainViewComponent implements OnInit {
   currentGuess: Guess | undefined;
 
   guessList: Array<Guess> = [];
-  guessListModel = Array(8).fill(Array(5));
+  guessListModel = Array(this.MAX_GUESSES).fill(Array(5));
 
   mainForm = new FormGroup({
     pokemonInput: new FormControl('', Validators.required),
@@ -115,7 +115,7 @@ export class MainViewComponent implements OnInit {
   resetGame() {
     this.endGame = '';
     this.guessList = [];
-    this.guessListModel = Array(8).fill(Array(5));
+    this.guessListModel = Array(this.MAX_GUESSES).fill(Array(5));
     this.currentGuess = undefined;
     this.currentCorrectAnswer = this.pokemonService.randomPokemon();
     this.mainForm.controls.pokemonInput.enable();

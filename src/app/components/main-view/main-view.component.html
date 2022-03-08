@@ -1,47 +1,60 @@
 <div class="main-container">
-  <div class="guess-table">
 
-    <div class="guess-row">
-      <div *ngFor="let header of headersList" class="guess-tile">
-        <div class="guess-content">
-          <svg viewBox="0 0 90 60" *ngIf="header === 'Name'">
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
-          </svg>
-          <svg viewBox="0 0 60 60" *ngIf="header !== 'Name'">
-            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
-          </svg>
+  <div class="guess-table">
+    <header>
+      <h1>weedle</h1>
+    </header>
+    <div class="guess-container">
+      <div class="guess-row">
+        <div *ngFor="let header of headersList" class="guess-tile guess-header">
+          <div class="weedle-head" *ngIf="header === 'Name'">
+            <div class="weedle-needle"></div>
+            <div class="weedle-eyes">
+              <div></div>
+              <div></div>
+            </div>
+            <div class="weedle-nose"></div>
+          </div>
+          <div class="guess-content">
+            <svg viewBox="0 0 90 60" *ngIf="header === 'Name'">
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
+            </svg>
+            <svg viewBox="0 0 60 60" *ngIf="header !== 'Name'">
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-
     <div *ngFor="let guess of guessList" class="guess-container filled">
       <div class="guess-row">
         <div
           [ngClass]="{
-          'equal': guess.idRelativeToAnswer === '=',
-          'different': guess.idRelativeToAnswer !== '=',
-          'guess-tile': true
+          'guess-tile': true,
+          'weedle-body': true
         }"
         >
+          <div class="weedle-foot"></div>
+          <div class="weedle-foot"></div>
           <div class="guess-content">
             <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '<'">
               <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.name}}</text>
-              <text x="20%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="white"><</text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="white">
+                    fill="#333">{{guess.pokemon.name}}</text>
+              <text x="25%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333"><</text>
+              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
                 #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
             </svg>
             <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '>'">
               <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.name}}</text>
-              <text x="80%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="white">></text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="white">
+                    fill="#333">{{guess.pokemon.name}}</text>
+              <text x="75%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">></text>
+              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
                 #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
             </svg>
             <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '='">
               <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.name}}</text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="white">
+                    fill="#333">{{guess.pokemon.name}}</text>
+              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
                 #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
             </svg>
           </div>
@@ -112,9 +125,10 @@
     </div>
 
     <div *ngFor="let emptyGuessRow of guessListModel" class="guess-container">
-      <div class="guess-title"></div>
       <div class="guess-row">
-        <div class="guess-tile" *ngFor="let emptyGuessItem of emptyGuessRow">
+        <div class="guess-tile weedle-body" *ngFor="let emptyGuessItem of emptyGuessRow">
+          <div class="weedle-foot"></div>
+          <div class="weedle-foot"></div>
           <div class="guess-content"></div>
         </div>
       </div>

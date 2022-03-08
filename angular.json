@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "wordlex": {
+    "weedle": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wordlex:build"
+            "browserTarget": "weedle:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "wordlex:build:production"
+              "browserTarget": "weedle:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wordlex:build"
+            "browserTarget": "weedle:build"
           }
         },
         "test": {
@@ -115,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "wordlex:serve"
+            "devServerTarget": "weedle:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "wordlex:serve:production"
+              "devServerTarget": "weedle:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "wordlex"
+  "defaultProject": "weedle"
 }
