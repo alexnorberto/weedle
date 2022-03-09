@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as pokemonList from '../../assets/pokemon.json';
-import {Pokemon} from '../components/main-view/main-view.component';
 
 /**
  * Service to handle Pokemon data from JSON and send to main app

@@ -1,171 +1,17 @@
 <div class="main-container">
 
-  <div class="guess-table">
+  <header>
+    <span>Catch the Pokemon chasing the</span>
+    <h1>weedle</h1>
+  </header>
 
-    <header>
-      <span>Catch the Pokemon chasing the</span>
-      <h1>weedle</h1>
-    </header>
-
-    <div title="guess-headers" class="guess-container">
-      <div class="guess-row">
-        <div *ngFor="let header of headersList" class="guess-tile guess-header">
-          <div class="weedle-head" *ngIf="header === 'Name'">
-            <div class="weedle-needle"></div>
-            <div class="weedle-eyes">
-              <div></div>
-              <div></div>
-            </div>
-            <div class="weedle-nose"></div>
-          </div>
-          <div class="guess-content">
-            <svg viewBox="0 0 90 60" *ngIf="header === 'Name'">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
-            </svg>
-            <svg viewBox="0 0 60 60" *ngIf="header !== 'Name'">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">{{header}}</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div title="guess-list" *ngFor="let guess of guessList" class="guess-container filled">
-      <div class="guess-row">
-        <div
-          [ngClass]="{
-          'guess-tile': true,
-          'weedle-body': true
-        }"
-        >
-          <div class="weedle-foot"></div>
-          <div class="weedle-foot"></div>
-          <div class="guess-content">
-            <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '<'">
-              <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="#333">{{guess.pokemon.name}}</text>
-              <text x="25%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333"><</text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
-                #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
-            </svg>
-            <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '>'">
-              <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="#333">{{guess.pokemon.name}}</text>
-              <text x="75%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">></text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
-                #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
-            </svg>
-            <svg viewBox="0 0 90 60" *ngIf="guess.idRelativeToAnswer === '='">
-              <text x="50%" y="36%" dominant-baseline="middle" text-anchor="middle"
-                    fill="#333">{{guess.pokemon.name}}</text>
-              <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" fill="#333">
-                #{{guess.pokemon.id.toString().padStart(3, '0')}}</text>
-            </svg>
-          </div>
-        </div>
-
-        <div
-          [ngClass]="{
-          'equal': guess.genRelativeToAnswer === '=',
-          'different': guess.genRelativeToAnswer !== '=',
-          'guess-tile': true
-        }"
-        >
-          <div class="guess-content">
-            <svg viewBox="0 0 60 60">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white">
-                Gen{{guess.pokemon.gen}}</text>
-            </svg>
-          </div>
-        </div>
-
-
-        <div
-          [ngClass]="{
-          'equal': guess.stageIsEqual,
-          'different': !guess.stageIsEqual,
-          'guess-tile': true
-        }"
-        >
-          <div class="guess-content">
-            <svg viewBox="0 0 60 60">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.stage}}</text>
-            </svg>
-          </div>
-        </div>
-
-        <div
-          [ngClass]="{
-          'equal': guess.type1IsEqual === 'true',
-          'different': guess.type1IsEqual === 'false',
-          'changed': guess.type1IsEqual === 'changed',
-          'guess-tile': true
-        }"
-        >
-          <div class="guess-content">
-            <svg viewBox="0 0 60 60">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.type1}}</text>
-            </svg>
-          </div>
-        </div>
-        <div
-          [ngClass]="{
-          'equal': guess.type2IsEqual === 'true',
-          'different': guess.type2IsEqual === 'false',
-          'changed': guess.type2IsEqual === 'changed',
-          'guess-tile': true
-        }"
-        >
-          <div class="guess-content">
-            <svg viewBox="0 0 60 60 ">
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                    fill="white">{{guess.pokemon.type2}}</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div title="guess-empty-list" *ngFor="let emptyGuessRow of guessListModel" class="guess-container">
-      <div class="guess-row">
-        <div class="guess-tile weedle-body" *ngFor="let emptyGuessItem of emptyGuessRow">
-          <div class="weedle-foot"></div>
-          <div class="weedle-foot"></div>
-          <div class="guess-content"></div>
-        </div>
-      </div>
-    </div>
-
-    <form [formGroup]="mainForm" autocomplete="off">
-      <div class="guess-row">
-        <input
-          class="pokemon-input"
-          formControlName="pokemonInput"
-          type="text"
-          [matAutocomplete]="auto"
-        >
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredPokemonList | async" [value]="option.name"
-                      (onSelectionChange)="saveCurrentPokemonGuess(option)">
-            <div class="autocomplete-pokemon-name autocomplete-data">{{option.name}}</div>
-            <div class="autocomplete-pokemon-data autocomplete-data">Gen #{{option.gen}} #{{option.id}}
-              - {{option.type1}}
-              /{{option.type2}}</div>
-          </mat-option>
-        </mat-autocomplete>
-        <button mat-raised-button (click)="submitGuess()">Catch</button>
-      </div>
-    </form>
-<button (click)="endGame = 'ok'">+</button>
-  </div>
+  <app-guess-table (endGameEmitter)="receiveEndGameStatus($event)"></app-guess-table>
 
 </div>
 
 
-<app-black-screen *ngIf="endGame" (closeBlackScreen)="resetGame($event)">
-  <div class="end-game">{{endGame}}</div>
+<app-black-screen *ngIf="endGameMessage" (closeBlackScreen)="resetEndGameMessage($event)">
+  <div class="end-game">{{endGameMessage}}</div>
 </app-black-screen>
 
 
