@@ -1,17 +1,20 @@
 <div class="main-container">
 
-  <header>
-    <span>Catch the Pokemon chasing the</span>
-    <h1>weedle</h1>
-  </header>
-
-  <app-guess-table (endGameEmitter)="receiveEndGameStatus($event)"></app-guess-table>
+  <app-guess-table class="guess-table-container" (endGameEmitter)="receiveEndGameStatus($event)">
+    <header>
+      <span class="header-subtitle">can you catch the Pokemon chasing the</span>
+      <span class="header-title">
+      W<a style="color:#ee8160;">E</a>EDLE<a (click)="showHelp = !showHelp" class="help-button">?</a>
+    </span>
+    </header>
+  </app-guess-table>
 
 </div>
 
-
-<app-black-screen *ngIf="endGameMessage" (closeBlackScreen)="resetEndGameMessage($event)">
-  <div class="end-game">{{endGameMessage}}</div>
+<app-black-screen *ngIf="showBlackScreen()" (closeBlackScreen)="closeBlackScreen($event)">
+  <div class="end-game" *ngIf="endGameMessage">{{endGameMessage}}</div>
+  <app-help *ngIf="showHelp"></app-help>
 </app-black-screen>
+
 
 

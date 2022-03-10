@@ -15,7 +15,7 @@ export class PokemonService {
     return this.pokemonList[Math.floor(Math.random() * this.pokemonList.length)];
   }
 
-  constructor() {
+  changePokemonListData(){
     const newList = [];
     this.pokemonList.forEach(pokemon => {
       pokemon.stage = pokemon.stage;
@@ -23,4 +23,6 @@ export class PokemonService {
     });
     console.log(this.pokemonList);
   }
+
+  constructor() {}
 }

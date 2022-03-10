@@ -14,13 +14,15 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import { BlackScreenComponent } from './components/black-screen/black-screen.component';
 import { GuessTableComponent } from './components/guess-table/guess-table.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainViewComponent,
     BlackScreenComponent,
-    GuessTableComponent
+    GuessTableComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,11 @@ import {PokemonService} from '../../services/pokemon.service';
 export class MainViewComponent implements OnInit {
 
   /**
+   * Sets if the help display will be shown
+   */
+  showHelp = false;
+
+  /**
    * Stores the endgame message to be sent to the black screen
    */
   endGameMessage = '';
@@ -23,11 +28,22 @@ export class MainViewComponent implements OnInit {
   }
 
   /**
-   * Reset the end game message to empty
+   * Sets if the blackScreen display will be shown
+   */
+  showBlackScreen() {
+    return (
+      this.endGameMessage ||
+      this.showHelp
+    );
+  }
+
+  /**
+   * Close the black screen, resetting the context variables
    * @param status possible status to be set as message
    */
-  resetEndGameMessage(status) {
+  closeBlackScreen(status) {
     this.endGameMessage = '';
+    this.showHelp = false;
   }
 
   constructor() {

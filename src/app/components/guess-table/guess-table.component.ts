@@ -1,5 +1,4 @@
 import {Component, OnInit, Output} from '@angular/core';
-import * as pokemonList from '../../../assets/pokemon.json';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {PokemonService} from '../../services/pokemon.service';
@@ -8,14 +7,12 @@ import {BlackScreenService} from '../../services/black-screen.service';
 import { EventEmitter } from '@angular/core';
 import {Guess, Pokemon} from '../../models/interfaces.model';
 
-
 @Component({
   selector: 'app-guess-table',
   templateUrl: './guess-table.component.html',
   styleUrls: ['./guess-table.component.css']
 })
 export class GuessTableComponent implements OnInit {
-
 
   MAX_GUESSES = 7;
 
@@ -34,7 +31,7 @@ export class GuessTableComponent implements OnInit {
     pokemonInput: new FormControl('', Validators.required),
   });
 
-  pokemonList: Array<Pokemon> = (pokemonList as any).default;
+  pokemonList: Array<Pokemon> = [];
 
   filteredPokemonList: Observable<Pokemon[]> | undefined;
 
@@ -107,6 +104,7 @@ export class GuessTableComponent implements OnInit {
   constructor(
     private pokemonService: PokemonService,
     private blackScreenService: BlackScreenService) {
+    this.pokemonList = this.pokemonService.pokemonList;
     this.blackScreenService.endGameBlackScreenCloseSubject.subscribe(
       () => {
         this.resetGame();
